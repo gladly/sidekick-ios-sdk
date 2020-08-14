@@ -17,5 +17,13 @@ To get an idea of how to work with the SDK an example application can be found [
 ## Releases
 Releases of the SDK can be found under the [releases](https://github.com/gladly/sidekick-ios-sdk/releases) tab.
 
+## FAQ
+What are the differences between the two release bundles?
+  - `GladlySidekick.framework.<version>.zip` contains code for both ARM and x84_64 architectures so it can be run on the physical iPhone and in the XCode simulator respectively. However, unused architectures may need to be removed before deploying to the App Store.
+  - `GladlySidekick.xcframework.<version>.zip` is supported by XCode 11 and up. It is the latest code distribution format and can simplify the process of developing and releasing applications by adding support for multiple platforms and architectures. There is also no need to strip unused architectures when deploying to the App Store.
+
+Which release bundle should I use?  
+  - If you are developing using XCode 11 or newer, we recommend using `GladlySidekick.xcframework.<version>.zip`.
+
 ## Licence
 [See license](https://github.com/gladly/sidekick-ios-sdk/tree/master/LICENSE.md)

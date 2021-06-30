@@ -1,0 +1,11 @@
+framework module GladlySidekick {
+  umbrella header "GladlySidekick.h"
+
+  export *
+  module * { export * }
+}
+
+module GladlySidekick.Swift {
+    header "GladlySidekick-Swift.h"
+    requires objc
+}

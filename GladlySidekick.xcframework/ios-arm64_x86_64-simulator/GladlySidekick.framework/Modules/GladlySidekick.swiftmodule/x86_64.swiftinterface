@@ -1,0 +1,130 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name GladlySidekick
+import CoreTelephony
+import Foundation
+@_exported import GladlySidekick
+import Swift
+import UIKit
+import UserNotifications
+import WebKit
+public enum GladlySettingsError : Swift.Error {
+  case missingAppId
+  case invalidEnvironment
+  public static func == (a: GladlySidekick.GladlySettingsError, b: GladlySidekick.GladlySettingsError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public struct UIConfiguration {
+  public var font: UIKit.UIFont
+  public var secondaryFont: UIKit.UIFont?
+  public var timeFormat: Swift.String?
+  public var dateFormat: Swift.String?
+  public var header: GladlySidekick.UIHeaderConfiguration
+  public var loadingView: UIKit.UIActivityIndicatorView
+  public init()
+}
+public protocol GladlyNotificationDelegate : AnyObject {
+  func notification(didReceiveNewMessageEvent messageEvent: GladlySidekick.GladlyMessageEvent)
+}
+public struct GladlyUser : Swift.Codable, Swift.Equatable {
+  public var gladlyCustomerId: Swift.String?
+  public var email: Swift.String?
+  public var name: Swift.String?
+  public init(email: Swift.String, name: Swift.String?)
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: GladlySidekick.GladlyUser, b: GladlySidekick.GladlyUser) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class GladlyMessageEvent {
+  final public let body: Swift.String
+  @objc deinit
+}
+public enum UIConfigurationError : Swift.Error {
+  case dismissButtonTextBlank
+  case dismissButtonTextTooLong
+  case headerTextBlank
+  case headerTextTooLong
+  public static func == (a: GladlySidekick.UIConfigurationError, b: GladlySidekick.UIConfigurationError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum GladlyError : Swift.Error {
+  case alreadyInitialized
+  case internalError
+  case notInitialized
+  case userAlreadyDefined
+  case noConversationExists
+  case userHasNotBeenDefined
+  case networkError
+  public static func == (a: GladlySidekick.GladlyError, b: GladlySidekick.GladlyError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension GladlyError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public protocol GladlyChatDisplayDelegate : AnyObject {
+  func gladlyChatDisplayWillClose()
+}
+@_hasMissingDesignatedInitializers public class Gladly {
+  public static let version: Swift.String
+  public static var notificationDelegate: GladlySidekick.GladlyNotificationDelegate? {
+    get
+    set
+  }
+  public static var chatDisplayDelegate: GladlySidekick.GladlyChatDisplayDelegate? {
+    get
+    set
+  }
+  public static var unreadCountDelegate: GladlySidekick.GladlyUnreadCountDelegate? {
+    get
+    set
+  }
+  public static func initialize(settings: GladlySidekick.GladlySettings) throws
+  public static func isInitialized() -> Swift.Bool
+  public static func destroy()
+  public static func set(user: GladlySidekick.GladlyUser) throws
+  public static func getUser() throws -> GladlySidekick.GladlyUser?
+  public static func logout()
+  public static func showChat() throws
+  public static func getUnreadCount(completionHandler: @escaping (Swift.Int, GladlySidekick.GladlyError?) -> Swift.Void)
+  public static func register(deviceToken: Foundation.Data) throws
+  public static func unregisterDeviceToken() throws
+  public static func handleNotification(didReceive response: UserNotifications.UNNotificationResponse) -> Swift.Bool
+  public static func handleNotification(willPresent notification: UserNotifications.UNNotificationRequest) -> Swift.Bool
+  @objc deinit
+}
+public struct UIHeaderConfiguration {
+  public var backgroundColor: UIKit.UIColor
+  public var dismissTextColor: UIKit.UIColor
+  public var dismissText: Swift.String
+  public var dismissImage: UIKit.UIImage?
+  public var text: Swift.String
+  public var textColor: UIKit.UIColor
+  public var statusBarStyle: UIKit.UIStatusBarStyle
+  public init()
+}
+public protocol GladlyUnreadCountDelegate : AnyObject {
+  func gladlyUnreadCountDidUpdate(count: Swift.Int)
+}
+public struct GladlySettings {
+  public var environment: Swift.String
+  public var unreadCountInterval: Swift.Int
+  public var uiConfiguration: GladlySidekick.UIConfiguration
+  public init(appId: Swift.String)
+}
+extension GladlySidekick.GladlySettingsError : Swift.Equatable {}
+extension GladlySidekick.GladlySettingsError : Swift.Hashable {}
+extension GladlySidekick.UIConfigurationError : Swift.Equatable {}
+extension GladlySidekick.UIConfigurationError : Swift.Hashable {}
+extension GladlySidekick.GladlyError : Swift.Equatable {}
+extension GladlySidekick.GladlyError : Swift.Hashable {}
